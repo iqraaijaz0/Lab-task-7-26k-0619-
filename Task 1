@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+int main() {
+    int temps[] = {31, 33, 35, 34, 38, 36, 32};
+    int length = sizeof(temps) / sizeof(temps[0]);
+    
+    int max = temps[0];
+    int min = temps[0];
+    float sum = 0;
+    
+    for (int i = 0; i < length; i++) {
+        printf("Day %d: %d C\n", i + 1, temps[i]);
+        
+        if (temps[i] > max) {
+            max = temps[i];
+        }
+        if (temps[i] < min) {
+            min = temps[i];
+        }
+        sum = sum + temps[i];
+    }
+    
+    printf("Highest: %d\n", max);
+    printf("Lowest: %d\n", min);
+    printf("Average: %.2f\n", sum / length);
+    
+    temps[2] = 37;
+    
+    max = temps[0];
+    min = temps[0];
+    sum = 0;
+    
+    printf("\nAfter Correction:\n");
+    for (int i = 0; i < length; i++) {
+        printf("Day %d: %d C\n", i + 1, temps[i]);
+        
+        if (temps[i] > max) {
+            max = temps[i];
+        }
+        if (temps[i] < min) {
+            min = temps[i];
+        }
+        sum = sum + temps[i];
+    }
+    
+    printf("New Highest: %d\n", max);
+    printf("New Lowest: %d\n", min);
+    printf("New Average: %.2f\n", sum / length);
+    
+    printf("\nAddresses:\n");
+    for (int i = 0; i < length; i++) {
+        printf("Index %d: %p\n", i, &temps[i]);
+    }
+    
+    return 0;
+}
