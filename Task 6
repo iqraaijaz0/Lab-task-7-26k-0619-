@@ -1,0 +1,71 @@
+#include <stdio.h>
+
+int main() {
+    int queue[15];
+    int count = 0;
+    int token;
+
+    while (count < 15) {
+        printf("Enter token number (or -1 to close registration): ");
+        scanf("%d", &token);
+
+        if (token == -1) {
+            break;
+        }
+
+        queue[count] = token;
+        count++;
+    }
+
+    printf("\nInitial Queue:\n");
+    for (int i = 0; i < count; i++) {
+        printf("Position %d -> Token %d\n", i + 1, queue[i]);
+    }
+
+    int choice;
+    while (count > 0) {
+        printf("\n1. Call Next Patient\n2. Add Emergency Patient\n3. Exit\nEnter choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 3) {
+            break;
+        }
+
+        if (choice == 1) {
+            printf("Calling Token: %d\n", queue[0]);
+            
+            for (int i = 0; i < count - 1; i++) {
+                queue[i] = queue[i + 1];
+            }
+            count--;
+        } 
+        else if (choice == 2) {
+            if (count >= 15) {
+                printf("Queue is full! Cannot add emergency.\n");
+                continue;
+            }
+
+            printf("Enter emergency token: ");
+            scanf("%d", &token);
+
+            for (int i = count; i > 0; i--) {
+                queue[i] = queue[i - 1];
+            }
+            
+            queue[0] = token;
+            count++;
+        }
+
+        printf("\nCurrent Queue:\n");
+        if (count == 0) {
+            printf("Queue is empty.\n");
+        } else {
+            for (int i = 0; i < count; i++) {
+                printf("Position %d -> Token %d\n", i + 1, queue[i]);
+            }
+        }
+    }
+
+    printf("\nRegistration closed. Final remaining patients count: %d\n", count);
+    return 0;
+}
