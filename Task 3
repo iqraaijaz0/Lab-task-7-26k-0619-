@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+int main() {
+    int stock[] = {25, 12, 8, 40, 5, 18, 3, 22};
+    int size = sizeof(stock) / sizeof(stock[0]);
+    
+    printf("Initial Stock:\n");
+    for (int i = 0; i < size; i++) {
+        printf("Item %d: %d\n", i + 1, stock[i]);
+        if (stock[i] < 10) {
+            printf("Item %d is LOW on stock - reorder required\n", i + 1);
+        }
+    }
+    printf("\n");
+
+    int itemNum;
+    int qtySold;
+
+    while (1) {
+        printf("Enter item number (1-8) or 0 to exit: ");
+        scanf("%d", &itemNum);
+
+        if (itemNum == 0) {
+            break;
+        }
+
+        if (itemNum < 1 || itemNum > 8) {
+            printf("Invalid item!\n");
+            continue;
+        }
+
+        printf("Enter quantity sold: ");
+        scanf("%d", &qtySold);
+
+        int index = itemNum - 1;
+
+        if (stock[index] - qtySold < 0) {
+            printf("Error: Not enough stock! Current: %d\n", stock[index]);
+        } else {
+            stock[index] = stock[index] - qtySold;
+            printf("Done!\n");
+        }
+        printf("\n");
+    }
+
+    int total = 0;
+    int minIndex = 0;
+
+    printf("\nFinal Stock:\n");
+    for (int i = 0; i < size; i++) {
+        printf("Item %d: %d\n", i + 1, stock[i]);
+        total = total + stock[i];
+
+        if (stock[i] < stock[minIndex]) {
+            minIndex = i;
+        }
+    }
+
+    printf("\nTotal remaining units: %d\n", total);
+    printf("Item with least stock: Item %d\n", minIndex + 1);
+
+    return 0;
+}
